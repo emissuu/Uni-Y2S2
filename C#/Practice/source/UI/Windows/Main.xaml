@@ -1,0 +1,29 @@
+﻿<Window x:Class="UI.Windows.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Windows"
+        mc:Ignorable="d"
+        Title="TeamTask" Height="675" Width="1080" Icon="/Assets/Logos/TeamTaskLogo.png" 
+        MinHeight="400" MinWidth="640">
+    <Grid ColumnDefinitions="240,*">
+        <Border Grid.Column="0" Background="{StaticResource Green950}">
+            <StackPanel >
+                <TextBlock Name="TextBlockUserName" Text="UserName" Style="{StaticResource TextBlock.h2}" Foreground="White" Margin="6,6,6,0"/>
+                <TextBlock Name="TextBlockUserRole" Text="UserRole" Style="{StaticResource TextBlock.basic}" Foreground="White" Margin="6,-2,6,4"/>
+                <Rectangle Style="{StaticResource Rectangle.separator}"/>
+                <Button Name="ButtonHome" Content="Dashboard" Style="{StaticResource Button.sidetab}" Margin="6,6,6,2" Click="ButtonChangeView_Click"/>
+                <Button Name="ButtonMyTodo" Content="My To-Do" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click" Visibility="Collapsed"/>
+                <Button Name="ButtonMyProjects" Content="My Projects" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click"/>
+                <Button Name="ButtonReports" Content="Reports" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click" Visibility="Collapsed"/>
+                <Button Name="ButtonMyTeams" Content="My Teams" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click"/>
+                <Button Name="ButtonMyProfile" Content="My Profile" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click"/>
+                <Button Name="ButtonUsers" Content="Users" Style="{StaticResource Button.sidetab}" Margin="6,2" Click="ButtonChangeView_Click" Visibility="Collapsed"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Background="{StaticResource Neutral100}">
+            <ContentPresenter Name="ViewPresenter"/>
+        </Border>
+    </Grid>
+</Window>

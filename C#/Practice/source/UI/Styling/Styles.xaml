@@ -1,0 +1,324 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styling/Brushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- ========== Button ========== -->
+    
+    <!-- Button.basic -->
+    <Style TargetType="Button" x:Key="Button.basic">
+        <Setter Property="Background" Value="{StaticResource Green600}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral900}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter 
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="4"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green700}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green800}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Button.round14 -->
+    <Style TargetType="Button" x:Key="Button.round14"
+           BasedOn="{StaticResource Button.basic}">
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="14"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    
+    <!-- Button.sidetab -->
+    <Style TargetType="Button" x:Key="Button.sidetab"
+           BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Green950}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="4"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green900}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green800}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.sidetab.chosen -->
+    <Style TargetType="Button" x:Key="Button.sidetab.chosen"
+       BasedOn="{StaticResource Button.sidetab}">
+        <Setter Property="Background" Value="{StaticResource Green900}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green800}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green800}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.tabbar -->
+    <Style TargetType="Button" x:Key="Button.tabbar"
+       BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Green800}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="4"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green700}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green600}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.listbox -->
+    <Style TargetType="Button" x:Key="Button.listbox"
+   BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Green300}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral900}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="6"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green400}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green500}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.confirm-->
+    <Style TargetType="Button" x:Key="Button.confirm"
+BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Green600}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="6"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="6"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green800}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green900}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.cancel-->
+    <Style TargetType="Button" x:Key="Button.cancel"
+BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Neutral100}"/>
+        <Setter Property="Foreground" Value="{StaticResource Green800}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="6"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="6"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green100}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Green200}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Button.remove-->
+    <Style TargetType="Button" x:Key="Button.remove"
+            BasedOn="{StaticResource Button.basic}">
+        <Setter Property="Background" Value="{StaticResource Red500}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="6"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="6"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Red600}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Red700}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ========== TextBlock ========== -->
+    
+    <!-- TextBlock.basic -->
+    <Style TargetType="TextBlock" x:Key="TextBlock.basic">
+        <Setter Property="Foreground" Value="{StaticResource Neutral900}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+    
+    <!-- TextBlock.h1-->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h1"
+           BasedOn="{StaticResource TextBlock.basic}">
+        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    
+    <!-- TextBlock.h2-->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h2"
+           BasedOn="{StaticResource TextBlock.basic}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <!-- TextBlock.h2white -->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h2.white"
+       BasedOn="{StaticResource TextBlock.h2}">
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+    </Style>
+
+    <!-- TextBlock.h3-->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h3"
+   BasedOn="{StaticResource TextBlock.basic}">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <!-- TextBlock.h3.white-->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h3.white"
+BasedOn="{StaticResource TextBlock.h3}">
+        <Setter Property="Foreground" Value="{StaticResource Neutral100}"/>
+    </Style>
+    
+    <!-- TextBlock.h3.rotated -->
+    <Style TargetType="TextBlock" x:Key="TextBlock.h3.rotated"
+           BasedOn="{StaticResource TextBlock.h3}">
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <RotateTransform Angle="45"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TextBlock.subtext -->
+    <Style TargetType="TextBlock" x:Key="TextBlock.subtext"
+           BasedOn="{StaticResource TextBlock.basic}">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <!-- ========== Rectangle ========== -->
+
+    <!-- Rectangle.separator -->
+    <Style TargetType="Rectangle" x:Key="Rectangle.separator">
+        <Setter Property="Fill" Value="{StaticResource Green900}"/>
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <!-- Rectangle.separator.vertical-->
+    <Style TargetType="Rectangle" x:Key="Rectangle.separator.vertical"
+           BasedOn="{StaticResource Rectangle.separator}">
+        <Setter Property="Width" Value="2"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ========== ItemsControl ========== -->
+
+    <!-- ItemsControl.basic-->
+    <Style TargetType="ItemsControl" x:Key="ItemsControl.basic">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+    </Style>
+
+    <!-- ========== CheckBox ========== -->
+
+    <!-- CheckBox.basic-->
+    <Style TargetType="CheckBox" x:Key="CheckBox.basic">
+        <Setter Property="Margin" Value="4,0,8,0"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Background" Value="{StaticResource Neutral100}"/>
+        <Setter Property="Foreground" Value="{StaticResource Green800}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Green400}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                        <Path x:Name="CheckMark" Data="M 4 10 L 8 14 L 16 6" 
+                              Stroke="{TemplateBinding Foreground}" StrokeThickness="2"
+                              Visibility="Collapsed" Margin="-1,-1,0,0"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- ========== Expander ========== -->
+    
+    <!-- Expander.basic -->
+    <Style TargetType="Expander" x:Key="Expander.basic">
+        <Setter Property="ExpandDirection" Value="Down"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FlowDirection" Value="RightToLeft"/>
+    </Style>
+
+
+</ResourceDictionary>
