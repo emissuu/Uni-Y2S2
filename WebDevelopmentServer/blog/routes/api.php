@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DiggingDeeperController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -23,5 +24,10 @@ Route::group($groupData, function () {
     Route::apiResource('categories', CategoryController::class)
         ->only($methods)
         ->names('blog.admin.categories');
+});
+
+Route::group(['prefix' => 'digging_deeper'], function () {
+    Route::get('collections', [DiggingDeeperController::class, 'collections'])
+        ->name('digging_deeper.collections');
 });
 
