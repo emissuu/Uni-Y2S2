@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\Blog\Admin;
 //use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use App\Http\Requests\BlogCategoryUpdateRequest;
+use App\Http\Requests\BlogCategoryCreateRequest;
 
 class CategoryController extends BaseController
 {
@@ -24,21 +25,26 @@ class CategoryController extends BaseController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogCategoryCreateRequest $request)
     {
-        $data = $request->all();
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        $data = $request->input(); //отримаємо масив даних, які надійшли з форми
+        if (empty($data['slug'])) { //якщо псевдонім порожній
+            $data['slug'] = Str::slug($data['title']); //генеруємо псевдонім
         }
-        $item = new BlogCategory();
-        $item->fill($data);
-        $result = $item->save();
 
-        if ($result) {
-            return ['message' => 'Успішно створено',
-                'item' => $item];
+        $item = (new BlogCategory())->create($data); //створюємо об'єкт і додаємо в БД
+
+        if ($item) {
+            return [
+                'success' => true,
+                'message' => 'Успішно збережено',
+                'item' => $item
+            ];
         } else {
-            return ['message' => 'Помилка створення'];
+            return [
+                'success' => false,
+                'message' => 'Помилка збереження'
+            ];
         }
     }
 
@@ -53,7 +59,7 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogCategoryUpdateRequest $request, string $id)
     {
         $item = BlogCategory::find($id);
         if (empty($item)) { //якщо ід не знайдено
@@ -62,7 +68,7 @@ class CategoryController extends BaseController
             ->withInput(); //повернути дані
         }
 
-        $data = $request->all(); //отримаємо масив даних, які надійшли з форми
+        $data = $request->input(); //отримаємо масив даних, які надійшли з форми
         if (empty($data['slug'])) { //якщо псевдонім порожній
             $data['slug'] = Str::slug($data['title']); //генеруємо псевдонім
         }
@@ -70,10 +76,15 @@ class CategoryController extends BaseController
         $result = $item->update($data);  //оновлюємо дані об'єкта і зберігаємо в БД
 
         if ($result) {
-            return ['message' => 'Успішно створено',
+            return [
+                'success' => true,
+                'message' => 'Успішно створено',
                 'item' => $item];
         } else {
-            return ['message' => 'Помилка створення'];
+            return [
+                'success' => false,
+                'message' => 'Помилка створення'
+            ];
         }
     }
 
