@@ -35,9 +35,10 @@ class CategoryController extends BaseController
         $result = $item->save();
 
         if ($result) {
-            return ['success' => 'Успішно створено'];
+            return ['message' => 'Успішно створено',
+                'item' => $item];
         } else {
-            return ['msg' => 'Помилка створення'];
+            return ['message' => 'Помилка створення'];
         }
     }
 
@@ -69,9 +70,10 @@ class CategoryController extends BaseController
         $result = $item->update($data);  //оновлюємо дані об'єкта і зберігаємо в БД
 
         if ($result) {
-            return ['success' => 'Успішно збережено'];
+            return ['message' => 'Успішно створено',
+                'item' => $item];
         } else {
-            return ['msg' => 'Помилка збереження'];
+            return ['message' => 'Помилка створення'];
         }
     }
 
