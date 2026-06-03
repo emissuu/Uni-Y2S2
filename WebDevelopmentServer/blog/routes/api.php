@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Blog\Admin\CategoryController;
+use App\Http\Controllers\Api\Blog\Admin\PostController as PostControllerAdmin;
+use App\Http\Controllers\Api\Blog\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DiggingDeeperController;
@@ -26,7 +29,7 @@ Route::group($groupData, function () {
         ->names('blog.admin.categories');
 
     //BlogPost
-    Route::apiResource('posts', PostController::class)
+    Route::apiResource('posts', PostControllerAdmin::class)
         ->except(['show'])                               //не робити маршрут для метода show
         ->names('blog.admin.posts');
 });

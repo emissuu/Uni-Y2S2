@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy([BlogPostObserver::class])]
 class BlogPost extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, HasFactory;
+    const UNKNOWN_USER = 1;
 
     protected $fillable
         = [
@@ -22,8 +22,7 @@ class BlogPost extends Model
             'excerpt',
             'content_raw',
             'is_published',
-            'published_at',
-            'user_id',
+            'published_at'
         ];
 
     /**
