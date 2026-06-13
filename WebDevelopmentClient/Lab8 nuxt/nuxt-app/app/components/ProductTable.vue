@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { getPaginationRowModel } from '@tanstack/vue-table';
-import {UBadge, UButton, UDropdownMenu} from "#components";
 import type {TableColumn} from "@nuxt/ui/components/Table.vue";
-import type {ProductTableItem} from "~/types/productTableItem";
+import type {ProductTable} from "~/types/productTable";
 
 const table = useTemplateRef('table');
 const props = defineProps<{
-  products: ProductTableItem[],
+  products: ProductTable[],
   status: string
 }>();
 
 // ===== Column initialization thing =====
-const columns: TableColumn<ProductTableItem>[] = [
+const columns: TableColumn<ProductTable>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => getHeader(column, "Title"),
@@ -119,7 +118,7 @@ const sorting = ref([
   }
 ])
 
-function getHeader(column: Column<ProductTableItem>, label: string) {
+function getHeader(column: Column<ProductTable>, label: string) {
   const isSorted = column.getIsSorted()
 
   return h(

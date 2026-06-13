@@ -27,9 +27,12 @@ class PostController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paginator = $this->blogPostRepository->getAllWithPaginate();
+        $per_page = $request->query('per_page', 25);
+        $filter = $request->query('filter', '');
+
+        $paginator = $this->blogPostRepository->getAllWithPaginate($per_page, $filter);
 
         return $paginator;
     }

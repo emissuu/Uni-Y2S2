@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Api\Blog;
 
 use App\Models\BlogPost;
+use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
 class PostController extends BaseController
 {
+    public function __construct(
+        private BlogPostRepository $blogPostRepository,
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = BlogPost::all();
+        $per_page = $request->query('per_page', 25);
+        $filter = $request->query('filter', '');
 
-        return $items;
+        $paginator = $this->blogPostRepository->getAllWithPaginate($per_page, $filter);
+
+        return $paginator;
     }
 
     /**

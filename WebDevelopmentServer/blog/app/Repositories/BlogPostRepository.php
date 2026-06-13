@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\BlogPost as Model;
 use Illuminate\Database\Eloquent\Collection;
+use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 
 /**
  * Class BlogСategoryRepository.
@@ -17,15 +18,25 @@ class BlogPostRepository extends CoreRepository
 
     /**
      * Отримати список статей
-     *
+     * @param int $per_page
+     * @param string filter
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllWithPaginate()
+    public function getAllWithPaginate($per_page, $filter)
     {
         $columns = ['id', 'title', 'slug', 'is_published', 'published_at', 'user_id', 'category_id',];
 
         $result = $this->startConditions()
-            ->select($columns)
+            ->select($columns);
+
+        if (!empty($filter)) {
+            $result = $result
+                ->where('slug', 'like', '%' . $filter . '%')
+                ->orWhere('excerpt', 'like', '%' . $filter . '%')
+                ->orWhere('content_raw', 'like', '%' . $filter . '%');
+        }
+
+        $result = $result
             ->orderBy('id','DESC')
             ->with([
                 'category' => function ($query) {
@@ -34,7 +45,7 @@ class BlogPostRepository extends CoreRepository
                 //'category:id,title',
                 'user:id,name',
             ])
-            ->paginate(25);
+            ->paginate($per_page);
 
         return $result;
     }

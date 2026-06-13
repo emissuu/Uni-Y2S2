@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type {ProductTableItem} from "~/types/productTableItem";
+import type {ProductTable} from "~/types/productTable";
 
-const { data: products, status } = await useLazyFetch<ProductTableItem[]>('/api/product-table')
+const { data: products, status } = await useLazyFetch<ProductTable[]>('/api/product-table')
 
 useSeoMeta({
   title: 'Products Table',
