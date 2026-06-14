@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Blog;
 
+use App\Http\Resources\Api\Blog\Admin\PostResource;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class PostController extends BaseController
 
         $paginator = $this->blogPostRepository->getAllWithPaginate($per_page, $filter);
 
-        return $paginator;
+        return PostResource::collection($paginator);
     }
 
     /**
@@ -39,7 +40,7 @@ class PostController extends BaseController
     public function show(string $slug)
     {
         $result = $this->blogPostRepository->getBySlug($slug);
-        return $result;
+        return PostResource::make($result);
     }
 
     /**

@@ -37,10 +37,10 @@ getPosts();
               <tbody>
               <tr v-for="post in posts">
                 <td>{{ post.id }}</td>
-                <td>{{ post.user.name }}</td>
-                <td>{{ post.category.title }}</td>
+                <td>{{ post.author_name }}</td>
+                <td>{{ post.category_title }}</td>
                 <td><a :href="'/blog/posts/' + post.slug">{{ post.title }}</a></td>
-                <td>{{ post.published_at }}
+                <td>{{ post.date_published }}
                 </td>
               </tr>
               </tbody>

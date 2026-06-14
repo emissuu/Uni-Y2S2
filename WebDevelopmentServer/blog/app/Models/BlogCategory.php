@@ -60,4 +60,9 @@ class BlogCategory extends Model
     {
         return $this->id === BlogCategory::ROOT;
     }
+
+    public function parent_category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+    }
 }

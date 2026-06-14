@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Blog\Admin;
 
 //use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Blog\Admin\CategoryResource;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 use Illuminate\Support\Str;
@@ -22,9 +23,9 @@ class CategoryController extends BaseController
     public function index()
     {
         //dd(__METHOD__);
-        $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
+        $paginator = $this->blogCategoryRepository->getAllWithPaginate(10);
 
-        return $paginator;
+        return CategoryResource::collection($paginator);
 
     }
 
@@ -56,7 +57,7 @@ class CategoryController extends BaseController
      */
     public function show(string $id)
     {
-        dd(__METHOD__);
+        //
     }
 
     /**

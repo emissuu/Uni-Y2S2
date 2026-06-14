@@ -4,9 +4,9 @@ import type {Post} from "~/types/blogPost";
 const route = useRoute()
 const post = ref<Post | null>(null)
 const getPost = () => {
-  $fetch<Post>('/api/blog-posts/' + route.params.slug)
+  $fetch<{data: Post}>('/api/blog-posts/' + route.params.slug)
     .then((response) => {
-      post.value = response;
+      post.value = response.data;
     })
 }
 

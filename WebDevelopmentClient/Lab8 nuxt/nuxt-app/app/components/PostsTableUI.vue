@@ -31,11 +31,11 @@ const columns: TableColumn<Post>[] = [
     header: "#"
   },
   {
-    accessorKey: "user.name",
+    accessorKey: "author_name",
     header: "Автор"
   },
   {
-    accessorKey: "category.title",
+    accessorKey: "category_title",
     header: "Категорія"
   },
   {
@@ -52,9 +52,9 @@ const columns: TableColumn<Post>[] = [
     }
   },
   {
-    accessorKey: "published_at",
+    accessorKey: "date_published",
     header: "Дата публікації",
-    cell: ({row}) => `${(new Date(row.getValue("published_at"))).toLocaleDateString() || ""}`
+    cell: ({row}) => `${(new Date(row.getValue("date_published"))).toLocaleDateString() || ""}`
   }
 ]
 
