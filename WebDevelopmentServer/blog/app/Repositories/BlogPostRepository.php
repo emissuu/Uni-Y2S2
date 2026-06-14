@@ -50,6 +50,29 @@ class BlogPostRepository extends CoreRepository
         return $result;
     }
     /**
+     * Отримати модель за слагом
+     * @param string $slug
+     * @return Model
+     */
+    public function getBySlug($slug)
+    {
+        $columns = ['id', 'title', 'slug', 'is_published', 'published_at', 'created_at', 'updated_at', 'user_id', 'category_id', 'excerpt', 'content_html', 'content_raw'];
+
+        $result = $this->startConditions()
+            ->select($columns)
+            ->with([
+                'category' => function ($query) {
+                    $query->select(['id', 'title']);
+                },
+                'user:id,name',
+            ])
+            ->where('slug', $slug)
+        ->first();
+
+        return $result;
+    }
+
+    /**
      *  Отримати модель для редагування в адмінці
      *  @param int $id
      *  @return Model

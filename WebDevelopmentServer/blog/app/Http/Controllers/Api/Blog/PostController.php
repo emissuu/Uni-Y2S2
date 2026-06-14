@@ -36,9 +36,10 @@ class PostController extends BaseController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $result = $this->blogPostRepository->getBySlug($slug);
+        return $result;
     }
 
     /**

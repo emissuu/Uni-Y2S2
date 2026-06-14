@@ -4,6 +4,7 @@ import type {TableColumn} from "@nuxt/ui/components/Table.vue";
 import type {DropdownMenuItem} from "@nuxt/ui/components/DropdownMenu.vue";
 
 
+const totalEntries = ref(0);
 const posts = ref<Post[]>([]);
 const currentPage = ref(1);
 const perPage = ref(25);
@@ -16,9 +17,10 @@ const getPosts = () => {
     per_page: perPage.value
   };
   if (globalFilter.value) queries['filter'] = globalFilter.value;
-  $fetch<{ current_page: number, data: Post[] }>('/api/blog-posts', { query: queries })
+  $fetch<{ current_page: number, data: Post[], total: number }>('/api/blog-posts', { query: queries })
     .then(response => {
       console.log("Received " + response.data.length + " posts");
+      totalEntries.value = response.total;
       posts.value = response.data;
     });
 };
@@ -43,7 +45,7 @@ const columns: TableColumn<Post>[] = [
       const title: string = row.getValue("title");
       return h('a',
         {
-          href: `/admin/blog/posts/${row.getValue("id")}/edit`,
+          href: `/blog/posts/${row.original.slug}`,
           class: 'underline'
         },
         title)
@@ -92,13 +94,13 @@ getPosts();
     <div class="flex justify-center">
       <div class="w-full">
 
-        <nav class="navbar bg-gray-100">
+        <nav class="navbar bg-gray-100 border-b-1 border-gray-300">
           <div class="flex justify-between">
             <div class="flex items-center">
               <UInput v-model="globalFilter" class="max-w-sm p-2" placeholder="Filter" />
-              <p class="ml-4" >Page:</p>
+              <p class="ml-2" >Page:</p>
               <UInput v-model="currentPage" class="max-w-16 p-2" />
-              <p class="ml-4" >Per page:</p>
+              <p class="ml-2" >Per page:</p>
               <UDropdownMenu
                 :items="perPageOptions"
                 :ui="{ content: 'min-w-2 w-20' }"
@@ -131,6 +133,13 @@ getPosts();
             tr: 'bg-gray-0 hover:bg-gray-100 transition-colors'
           }"/>
 
+        <footer class="footer bg-gray-100 border-t-1 border-gray-300">
+          <div class="flex justify between">
+            <div>
+              <p class="m-3 text-base" >Total entries: {{totalEntries}}</p>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </div>

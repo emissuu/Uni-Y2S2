@@ -39,7 +39,7 @@ getPosts();
                 <td>{{ post.id }}</td>
                 <td>{{ post.user.name }}</td>
                 <td>{{ post.category.title }}</td>
-                <td><a :href="'/admin/blog/posts/' + post.id + '/edit'">{{ post.title }}</a></td>
+                <td><a :href="'/blog/posts/' + post.slug">{{ post.title }}</a></td>
                 <td>{{ post.published_at }}
                 </td>
               </tr>
