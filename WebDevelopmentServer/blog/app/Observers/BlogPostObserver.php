@@ -102,6 +102,13 @@ class BlogPostObserver
         if (empty($blogPost->slug)) {
             $blogPost->slug = Str::slug($blogPost->title);
         }
+        $origSlug = $blogPost->slug;
+        $counter = 1;
+
+        while(BlogPost::where('slug', $blogPost->slug)->exists()) {
+            $blogPost->slug = "{$origSlug}-{$counter}";
+            $counter++;
+        }
     }
 
     /**

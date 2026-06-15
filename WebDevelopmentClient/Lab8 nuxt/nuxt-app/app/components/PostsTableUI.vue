@@ -2,13 +2,15 @@
 import type {Post} from "~/types/blogPost";
 import type {TableColumn} from "@nuxt/ui/components/Table.vue";
 import type {DropdownMenuItem} from "@nuxt/ui/components/DropdownMenu.vue";
+import {refDebounced} from "@vueuse/shared";
 
 
 const totalEntries = ref(0);
 const posts = ref<Post[]>([]);
 const currentPage = ref(1);
 const perPage = ref(25);
-const globalFilter = ref ("");
+const filter = ref("");
+const filterDebounced = refDebounced(filter, 500)
 const sorting = ref([{ id: 'id', desc: true }])
 
 const getPosts = () => {
@@ -16,7 +18,7 @@ const getPosts = () => {
     page: currentPage.value,
     per_page: perPage.value
   };
-  if (globalFilter.value) queries['filter'] = globalFilter.value;
+  if (filter.value) queries['filter'] = filter.value;
   $fetch<{ meta: { current_page: number, total: number }, data: Post[] }>('/api/blog-posts', { query: queries })
     .then(response => {
       totalEntries.value = response.meta.total;
@@ -80,7 +82,7 @@ const perPageOptions: DropdownMenuItem[] = [
   },
 ]
 
-watch([globalFilter], () => {
+watch([filterDebounced], () => {
   currentPage.value = 1;
   getPosts();
 })
@@ -100,9 +102,15 @@ getPosts();
         <nav class="navbar bg-gray-100 border-b border-gray-300">
           <div class="flex justify-between">
             <div class="flex items-center">
-              <UInput v-model="globalFilter" class="max-w-sm p-2" placeholder="Filter" />
+              <UInput v-model="filter" class="max-w-sm p-2" placeholder="Filter" />
               <p class="ml-2" >Page:</p>
-              <UInput v-model="currentPage" class="max-w-16 p-2" />
+              <UPagination
+                class="p-2"
+                :total="totalEntries"
+                :page="currentPage"
+                :items-per-page="perPage"
+                @update:page="(page) => {currentPage = page}"
+              />
               <p class="ml-2" >Per page:</p>
               <UDropdownMenu
                 :items="perPageOptions"
@@ -138,7 +146,9 @@ getPosts();
         <footer class="footer bg-gray-100 border-t border-gray-300">
           <div class="flex justify between">
             <div>
-              <p class="m-3 text-base" >{{ !globalFilter || globalFilter.length == 0 ? 'Total entries:' : 'Total entries matching filter:' }} {{totalEntries}}</p>
+              <p class="m-3 text-base" >{{
+                  !filter || filter.length == 0 ? 'Total entries:' : 'Total entries matching filter:'
+                }} {{ totalEntries }}</p>
             </div>
           </div>
         </footer>

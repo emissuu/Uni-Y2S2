@@ -33,6 +33,13 @@ class BlogCategoryObserver
         if (empty($blogCategory->slug)) {
             $blogCategory->slug = Str::slug($blogCategory->title);
         }
+        $origSlug = $blogCategory->slug;
+        $counter = 1;
+
+        while(BlogCategory::where('slug', $blogCategory->slug)->exists()) {
+            $blogCategory->slug = "{$origSlug}-{$counter}";
+            $counter++;
+        }
     }
 
     /**
