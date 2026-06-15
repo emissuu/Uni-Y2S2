@@ -17,11 +17,14 @@ const getPosts = () => {
     per_page: perPage.value
   };
   if (globalFilter.value) queries['filter'] = globalFilter.value;
-  $fetch<{ current_page: number, data: Post[], total: number }>('/api/blog-posts', { query: queries })
+  $fetch<{ meta: { current_page: number, total: number }, data: Post[] }>('/api/blog-posts', { query: queries })
     .then(response => {
-      console.log("Received " + response.data.length + " posts");
-      totalEntries.value = response.total;
+      totalEntries.value = response.meta.total;
       posts.value = response.data;
+
+      // debug
+      console.log("Received " + response.data.length + " posts");
+      console.log("Displaying " + posts.value.length + " posts");
     });
 };
 
@@ -94,7 +97,7 @@ getPosts();
     <div class="flex justify-center">
       <div class="w-full">
 
-        <nav class="navbar bg-gray-100 border-b-1 border-gray-300">
+        <nav class="navbar bg-gray-100 border-b border-gray-300">
           <div class="flex justify-between">
             <div class="flex items-center">
               <UInput v-model="globalFilter" class="max-w-sm p-2" placeholder="Filter" />
@@ -126,17 +129,16 @@ getPosts();
           :data="posts"
           :columns="columns"
           v-model:sorting="sorting"
-          v-model:global-filter="globalFilter"
           :ui="{
             td: 'whitespace-normal',
             thead: 'bg-gray-100 text-gray-500',
             tr: 'bg-gray-0 hover:bg-gray-100 transition-colors'
           }"/>
 
-        <footer class="footer bg-gray-100 border-t-1 border-gray-300">
+        <footer class="footer bg-gray-100 border-t border-gray-300">
           <div class="flex justify between">
             <div>
-              <p class="m-3 text-base" >Total entries: {{totalEntries}}</p>
+              <p class="m-3 text-base" >{{ !globalFilter || globalFilter.length == 0 ? 'Total entries:' : 'Total entries matching filter:' }} {{totalEntries}}</p>
             </div>
           </div>
         </footer>

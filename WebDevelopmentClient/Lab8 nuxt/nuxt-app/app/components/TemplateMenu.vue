@@ -1,3 +1,5 @@
+<script setup lang="ts">
+</script>
 <template>
   <UDropdownMenu
     v-slot="{ open }"
@@ -46,4 +48,9 @@
       }"
     />
   </UDropdownMenu>
+  <div class="flex gap-4 font-semibold mt-1 mx-3 underline">
+    <a href="/products">Products</a>
+    <a href="/table">Table</a>
+    <a href="/blog/postsUI">Blog</a>
+  </div>
 </template>
