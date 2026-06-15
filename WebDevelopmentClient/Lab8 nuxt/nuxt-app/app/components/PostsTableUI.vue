@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type {Post} from "~/types/blogPost";
+import type {Post} from "~/types/blog";
 import type {TableColumn} from "@nuxt/ui/components/Table.vue";
 import type {DropdownMenuItem} from "@nuxt/ui/components/DropdownMenu.vue";
 import {refDebounced} from "@vueuse/shared";
+import {UDropdownMenu} from "#components";
 
 
 const totalEntries = ref(0);
@@ -19,7 +20,7 @@ const getPosts = () => {
     per_page: perPage.value
   };
   if (filter.value) queries['filter'] = filter.value;
-  $fetch<{ meta: { current_page: number, total: number }, data: Post[] }>('/api/blog-posts', { query: queries })
+  $fetch<{ meta: { current_page: number, total: number }, data: Post[] }>('/api/blog/posts', { query: queries })
     .then(response => {
       totalEntries.value = response.meta.total;
       posts.value = response.data;
@@ -33,15 +34,18 @@ const getPosts = () => {
 const columns: TableColumn<Post>[] = [
   {
     accessorKey: "id",
-    header: "#"
+    header: "#",
+    meta: {class: {td: "w-[5%]"}}
   },
   {
     accessorKey: "author_name",
-    header: "Автор"
+    header: "Автор",
+    meta: {class: {td: "w-[15%]"}}
   },
   {
     accessorKey: "category_title",
-    header: "Категорія"
+    header: "Категорія",
+    meta: {class: {td: "w-[15%]"}}
   },
   {
     accessorKey: "title",
@@ -54,14 +58,62 @@ const columns: TableColumn<Post>[] = [
           class: 'underline'
         },
         title)
-    }
+    },
+    meta: {class: {td: "w-[50%]"}}
   },
+
   {
     accessorKey: "date_published",
     header: "Дата публікації",
-    cell: ({row}) => `${(new Date(row.getValue("date_published"))).toLocaleDateString() || ""}`
+    cell: ({row}) => {
+      const date: string = row.getValue("date_published");
+      return date ?
+        `${(new Date(row.getValue("date_published"))).toLocaleDateString()}` :
+        ""
+    },
+    meta: {class: {td: "w-[10%]"}}
+  },
+  {
+    accessorKey: 'id',
+    header: " ",
+    cell: ({row}) => h(
+      UDropdownMenu,
+      {
+        items: getAdminOptions(row.original.id, row.original.slug),
+      },
+      h(
+        UButton, {
+          variant: 'ghost', color: 'neutral',
+          class: 'w-8 rounded-xl hover:bg-gray-200',
+          icon: 'i-lucide-ellipsis-vertical'
+        }
+      )
+    ),
+    meta: {class: {td: "w-[5%]"}}
   }
 ]
+
+const handleDelete = (id: number) => {
+  $fetch(`/api/admin/blog/posts/${id}`, { method: 'DELETE', })
+    .then(response => {
+      getPosts();
+    });
+}
+
+const getAdminOptions = (id: number, slug: string): DropdownMenuItem[]  => [
+  {
+    label: 'Edit',
+    color: 'neutral',
+    icon: 'i-lucide-square-pen',
+    onClick: () => navigateTo(`/admin/blog/posts/${slug}/edit`)
+  },
+  {
+    label: 'Delete',
+    icon: 'i-lucide-trash',
+    color: 'error',
+    onClick: () => handleDelete(id)
+  }
+];
 
 const perPageOptions: DropdownMenuItem[] = [
   {
@@ -80,7 +132,7 @@ const perPageOptions: DropdownMenuItem[] = [
     label: '100',
     onSelect: () => {perPage.value = 100},
   },
-]
+];
 
 watch([filterDebounced], () => {
   currentPage.value = 1;

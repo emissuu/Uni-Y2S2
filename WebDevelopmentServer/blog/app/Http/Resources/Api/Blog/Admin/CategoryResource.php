@@ -19,7 +19,8 @@ class CategoryResource extends JsonResource
             'title' => $this->title,
             'parent_id' => $this->parent_id == 0 ? null : $this->parent_id,
             'parent_title' => $this->parent_id == 0 ? null : $this->parent_category?->title,
-            'description' => $this->description
+            'description' => $this->description,
+            'date_updated' => $this->updated_at
         ];
     }
 }

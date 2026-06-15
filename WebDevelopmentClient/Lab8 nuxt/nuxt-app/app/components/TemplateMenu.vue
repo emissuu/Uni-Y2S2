@@ -51,6 +51,8 @@
   <div class="flex gap-4 font-semibold mt-1 mx-3 underline">
     <a href="/products">Products</a>
     <a href="/table">Table</a>
+    <div class="w-[1.5px] -my-0.5 -mx-2 bg-slate-500" />
     <a href="/blog/postsUI">Blog</a>
+    <a href="/admin/blog/categories">Categories</a>
   </div>
 </template>

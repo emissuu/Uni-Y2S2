@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Post} from "~/types/blogPost";
+import type {Post} from "~/types/blog";
 
 defineProps<{
   post: Post | null,
@@ -30,9 +30,7 @@ defineProps<{
       <main class="p-6 text-justify">
         <div class="relative">
           <div class="absolute right-4 -mr-4">
-            <UButton variant="ghost" color="neutral" class="w-8">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical -ml-[7px] -mr-2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-            </UButton>
+            <UButton variant="ghost" color="neutral" class="w-8 rounded-xl" icon="i-lucide-ellipsis-vertical" />
           </div>
           <h2 class="font-bold text-3xl mb-1 w-[95%] text-wrap">
             {{post.title}}

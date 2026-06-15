@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Blog\Admin;
 use App\Http\Resources\Api\Blog\Admin\CategoryResource;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Http\Requests\BlogCategoryCreateRequest;
@@ -20,13 +21,14 @@ class CategoryController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //dd(__METHOD__);
-        $paginator = $this->blogCategoryRepository->getAllWithPaginate(10);
+        $per_page = $request->query('per_page', 10);
+        $filter = $request->query('filter', '');
+
+        $paginator = $this->blogCategoryRepository->getAllWithPaginate($per_page, $filter);
 
         return CategoryResource::collection($paginator);
-
     }
 
     /**
@@ -57,7 +59,8 @@ class CategoryController extends BaseController
      */
     public function show(string $id)
     {
-        //
+        $result = $this->blogCategoryRepository->getEdit($id);
+        return CategoryResource::make($result);
     }
 
     /**
@@ -94,6 +97,21 @@ class CategoryController extends BaseController
      */
     public function destroy(string $id)
     {
-        dd(__METHOD__);
+        $item = $this->blogCategoryRepository->getEdit($id);
+
+        $result = BlogCategory::destroy($id);
+
+        if ($result) {
+            return [
+                'success' => true,
+                'message' => 'Успішно видалено',
+                'item' => $item
+            ];
+        } else {
+            return [
+                'success' => false,
+                'message' => 'Помилка видалення'
+            ];
+        }
     }
 }

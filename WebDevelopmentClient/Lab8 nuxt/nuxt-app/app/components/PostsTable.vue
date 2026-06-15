@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type {Post} from "~/types/blogPost";
+import type {Post} from "~/types/blog";
 
 const posts = ref<Post[]>([]),
   getPosts = () => {
-  $fetch<{ current_page: number, data: Post[] }>('/api/blog-posts')
+  $fetch<{ current_page: number, data: Post[] }>('/api/blog/posts')
     .then(response => {
       console.log("Received " + response.data.length + " posts");
       posts.value = response.data;

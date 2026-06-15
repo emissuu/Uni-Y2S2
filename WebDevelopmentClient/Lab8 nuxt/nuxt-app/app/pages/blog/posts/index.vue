@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<PostsTable />
+  <PostsTable />
 </template>
 
 <style scoped>

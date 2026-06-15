@@ -32,6 +32,7 @@ class BlogPostRepository extends CoreRepository
         if (!empty($filter)) {
             $result = $result
                 ->where('slug', 'like', '%' . $filter . '%')
+                ->orWhere('title', 'like', '%' . $filter . '%')
                 ->orWhere('excerpt', 'like', '%' . $filter . '%')
                 ->orWhere('content_raw', 'like', '%' . $filter . '%');
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Blog\Admin;
 
+use App\Http\Resources\Api\Blog\Admin\CategoryResource;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
 use App\Http\Requests\BlogPostUpdateRequest;
