@@ -1,9 +1,40 @@
 <script setup lang="ts">
 import type {Post} from "~/types/blog";
+import type {DropdownMenuItem} from "@nuxt/ui/components/DropdownMenu.vue";
+import {UDropdownMenu} from "#components";
 
-defineProps<{
+const props = defineProps<{
   post: Post | null,
 }>()
+
+const handleDelete = (id: number) => {
+  $fetch(`/api/admin/blog/posts/${id}`, { method: 'DELETE', })
+    .then(res => {
+      navigateTo('/blog/postsUI');
+    })
+}
+
+const adminOptions: DropdownMenuItem[] = [
+  {
+    label: 'Edit',
+    color: 'neutral',
+    icon: 'i-lucide-square-pen',
+    onClick: () => {
+      if (props.post)
+        navigateTo(`/admin/blog/posts/${props.post.slug}/edit`)
+    }
+  },
+  {
+    label: 'Delete',
+    icon: 'i-lucide-trash',
+    color: 'error',
+    onClick: () => {
+      if (props.post)
+      handleDelete(props.post.id)
+    }
+  }
+];
+
 </script>
 
 <template>
@@ -30,7 +61,11 @@ defineProps<{
       <main class="p-6 text-justify">
         <div class="relative">
           <div class="absolute right-4 -mr-4">
-            <UButton variant="ghost" color="neutral" class="w-8 rounded-xl" icon="i-lucide-ellipsis-vertical" />
+            <UDropdownMenu
+              :items="adminOptions"
+              class="m-2">
+              <UButton variant="ghost" color="neutral" class="w-8 rounded-xl" icon="i-lucide-ellipsis-vertical" />
+            </UDropdownMenu>
           </div>
           <h2 class="font-bold text-3xl mb-1 w-[95%] text-wrap">
             {{post.title}}

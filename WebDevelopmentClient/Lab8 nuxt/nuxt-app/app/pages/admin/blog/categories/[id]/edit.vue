@@ -7,6 +7,10 @@ const getCategory = () => {
   $fetch<{data: Category}>('/api/admin/blog/categories/' + route.params.id)
     .then((response) => {
       category.value = response.data;
+      useSeoMeta({
+        title: 'Editing blog category',
+        description: `Page for editing category ${response.data.title}`,
+      });
     })
 }
 

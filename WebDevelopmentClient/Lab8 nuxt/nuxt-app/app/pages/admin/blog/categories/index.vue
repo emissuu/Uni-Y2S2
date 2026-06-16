@@ -1,5 +1,8 @@
 <script setup lang="ts">
-
+useSeoMeta({
+  title: 'All categories',
+  description: 'Page for viewing and managing all blog categories',
+});
 </script>
 
 <template>

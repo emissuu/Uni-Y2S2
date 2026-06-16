@@ -1,5 +1,10 @@
 <script setup lang="ts">
 
+useSeoMeta({
+  title: 'Creating new category',
+  description: `Page for creating new blog category`,
+});
+
 </script>
 
 <template>

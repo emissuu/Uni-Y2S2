@@ -1,5 +1,8 @@
 <script setup lang="ts">
-
+useSeoMeta({
+  title: 'Creating new post',
+  description: `Page for creating new blog post`,
+});
 </script>
 
 <template>

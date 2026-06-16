@@ -7,6 +7,10 @@ const getPost = () => {
   $fetch<{data: Post}>('/api/blog/posts/' + route.params.slug)
     .then((response) => {
       post.value = response.data;
+      useSeoMeta({
+        title: response.data.title,
+        description: `Viewing blog post ${response.data.title}`,
+      });
     })
 }
 
